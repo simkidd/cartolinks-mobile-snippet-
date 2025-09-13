@@ -31,7 +31,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./src/assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
@@ -40,7 +40,15 @@
           }
         }
       ],
-      "expo-font"
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/Roboto-VariableFont_wdth,wght.ttf",
+            ".src/assets/fonts/Nunito-VariableFont_wght.ttf"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
