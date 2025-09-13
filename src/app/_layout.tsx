@@ -60,7 +60,7 @@ export default function RootLayout() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null; // Keep the splash screen visible
+    return null; 
   }
 
   return (

@@ -45,7 +45,6 @@ export default function GeneratePosterScreen() {
 
   const handleGenerate = () => {
     console.log("Generate button pressed!");
-    // Implement generation logic here
   };
 
   return (
