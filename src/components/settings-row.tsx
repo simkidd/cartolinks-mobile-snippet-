@@ -1,3 +1,4 @@
+import { useTheme } from "@/contexts/theme.context";
 import { ChevronRight } from "lucide-react-native";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -7,18 +8,33 @@ interface SettingsRowProps {
   onPress: () => void;
 }
 
-export const SettingsRow = ({ label, value, onPress }: SettingsRowProps) => (
-  <TouchableOpacity
-    className="flex-row items-center justify-between p-4 my-2  bg-transparent"
-    onPress={onPress}
-    activeOpacity={0.7}
-    accessibilityRole="button"
-  >
-    <Text className="text-gray-300 font-roboto">{label}</Text>
+export const SettingsRow = ({ label, value, onPress }: SettingsRowProps) => {
+  const { theme } = useTheme();
+  return (
+    <TouchableOpacity
+      className="flex-row items-center justify-between p-4 bg-transparent"
+      onPress={onPress}
+      activeOpacity={0.7}
+      accessibilityRole="button"
+    >
+      <Text
+        className={` ${
+          theme === "dark" ? "text-gray-300" : "text-gray-700"
+        }`}
+      >
+        {label}
+      </Text>
 
-    <View className="flex-row items-center">
-      <Text className="text-neutral-500 font-roboto mr-2">{value}</Text>
-      <ChevronRight size={18} color="gray" />
-    </View>
-  </TouchableOpacity>
-);
+      <View className="flex-row items-center">
+        <Text
+          className={`mr-2 ${
+            theme === "dark" ? "text-neutral-500" : "text-neutral-700"
+          }`}
+        >
+          {value}
+        </Text>
+        <ChevronRight size={18} color={theme === "dark" ? "gray" : "black"} />
+      </View>
+    </TouchableOpacity>
+  );
+};

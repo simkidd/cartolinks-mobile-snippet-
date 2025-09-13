@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "cartolinks-mobile-snippet",
+    "name": "CL Image Generator",
     "slug": "cartolinks-mobile-snippet",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -45,7 +45,7 @@
         {
           "fonts": [
             "./src/assets/fonts/Roboto-VariableFont_wdth,wght.ttf",
-            ".src/assets/fonts/Nunito-VariableFont_wght.ttf"
+            "./src/assets/fonts/Nunito-VariableFont_wght.ttf"
           ]
         }
       ]

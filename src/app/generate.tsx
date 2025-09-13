@@ -49,14 +49,14 @@ export default function GeneratePosterScreen() {
 
   return (
     <View className={`flex-1 ${theme === "dark" ? "bg-black" : "bg-white"}`}>
-      <AppHeader
-        theme={theme}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+      <AppHeader activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <ScrollView className="flex-1 px-4">
-        <Text className="text-4xl mt-4 mb-4 text-black dark:text-white font-roboto">
+        <Text
+          className={`text-4xl mt-4 mb-4 ${
+            theme === "dark" ? "text-white" : "text-black"
+          }`}
+        >
           What type of posters do you want to create?
         </Text>
 
@@ -76,32 +76,50 @@ export default function GeneratePosterScreen() {
           ))}
         </ScrollView>
 
-        <View className="bg-gray-800 dark:bg-[#161819] rounded-xl px-4 py-2 pb-4 mb-6">
+        <View
+          className={`rounded-xl px-4 py-2 pb-4 mb-6 ${
+            theme === "dark" ? "bg-[#161819]" : "bg-neutral-200"
+          }`}
+        >
           <TextInput
             value={description}
             onChangeText={setDescription}
             multiline
-            className="text-white min-h-[100px] text-base font-roboto"
+            className={`min-h-[100px] text-base ${
+              theme === "dark" ? "text-white" : "text-black"
+            }`}
             placeholder="Describe your poster..."
-            placeholderTextColor="#aaa"
+            placeholderTextColor={theme === "dark" ? "#aaa" : "#555"}
             textAlignVertical="top"
           />
           <View className="flex-row justify-end mt-2">
-            <ImagePlus size={20} color={theme === "dark" ? "white" : "white"} />
+            <ImagePlus color={theme === "dark" ? "white" : "black"} />
           </View>
         </View>
 
-        <Text className="text-xl mb-2 text-black dark:text-neutral-400 font-roboto">
+        <Text
+          className={`text-lg mb-2  ${
+            theme === "dark" ? "text-neutral-500" : "text-neutral-700"
+          }`}
+        >
           Settings
         </Text>
 
-        <View className="bg-[#161819] rounded-xl px-3">
+        <View
+          className={`rounded-xl ${
+            theme === "dark" ? "bg-[#161819]" : "bg-neutral-200"
+          } px-3`}
+        >
           <SettingsRow
             label="Size"
             value="1080 x 1920 px"
             onPress={() => console.log("Edit Size")}
           />
-          <View className="h-[1px] bg-[#2a2c2e62] mx-2" />
+          <View
+            className={`h-[1px] mx-2 ${
+              theme === "dark" ? "bg-[#2a2c2e62]" : "bg-gray-400"
+            }`}
+          />
           <SettingsRow
             label="Category"
             value="Foods and beverage"
