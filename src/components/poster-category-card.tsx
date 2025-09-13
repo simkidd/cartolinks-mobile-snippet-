@@ -38,7 +38,7 @@ export const PosterCategoryCard = ({
         tint="dark"
         className="absolute bottom-0 left-0 right-0 px-2 py-2"
       >
-        <Text className="text-white text-xs text-center font-bold">{title}</Text>
+        <Text className="text-white text-xs text-center font-roboto">{title}</Text>
       </BlurView>
     </TouchableOpacity>
   </View>

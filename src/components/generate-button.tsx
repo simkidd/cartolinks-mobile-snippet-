@@ -8,7 +8,7 @@ interface GenerateButtonProps {
 export const GenerateButton = ({ onPress }: GenerateButtonProps) => (
   <View className="p-4 mb-8">
     <TouchableOpacity
-      className="flex-row items-center justify-center p-3 rounded-xl bg-white"
+      className="flex-row items-center justify-center p-3 rounded-xl bg-white "
       onPress={onPress}
       activeOpacity={0.6}
       accessibilityRole="button"
@@ -26,7 +26,7 @@ export const GenerateButton = ({ onPress }: GenerateButtonProps) => (
           <Circle cx="10" cy="10" r="8" fill="url(#grad)" />
         </Svg>
       </View>
-      <Text className="text-black text-lg font-bold">Generate</Text>
+      <Text className="text-black text-lg font-roboto">Generate</Text>
     </TouchableOpacity>
   </View>
 );

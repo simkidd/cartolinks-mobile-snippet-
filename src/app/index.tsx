@@ -57,7 +57,7 @@ export default function GeneratePosterScreen() {
       />
 
       <ScrollView className="flex-1 px-4">
-        <Text className="text-4xl font-bold mt-4 mb-4 text-black dark:text-white">
+        <Text className="text-4xl mt-4 mb-4 text-black dark:text-white font-roboto">
           What type of posters do you want to create?
         </Text>
 
@@ -82,7 +82,7 @@ export default function GeneratePosterScreen() {
             value={description}
             onChangeText={setDescription}
             multiline
-            className="text-white min-h-[100px] text-base"
+            className="text-white min-h-[100px] text-base font-roboto"
             placeholder="Describe your poster..."
             placeholderTextColor="#aaa"
             textAlignVertical="top"
@@ -92,7 +92,7 @@ export default function GeneratePosterScreen() {
           </View>
         </View>
 
-        <Text className="text-xl font-bold mb-2 text-black dark:text-neutral-400">
+        <Text className="text-xl mb-2 text-black dark:text-neutral-400 font-roboto">
           Settings
         </Text>
 

@@ -27,7 +27,7 @@ export const AppHeader = ({
         className="flex-1 items-center"
       >
         <Text
-          className={`font-semibold py-4 ${
+          className={`font-semibold py-4 font-roboto ${
             activeTab === "smart" ? "text-white font-bold" : "text-neutral-400"
           }`}
         >
@@ -41,7 +41,7 @@ export const AppHeader = ({
         className="flex-1 items-center"
       >
         <Text
-          className={`font-semibold py-4 ${
+          className={`font-semibold py-4 font-roboto ${
             activeTab === "advanced"
               ? "text-white font-bold"
               : "text-neutral-400"

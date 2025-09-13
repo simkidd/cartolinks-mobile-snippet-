@@ -14,10 +14,10 @@ export const SettingsRow = ({ label, value, onPress }: SettingsRowProps) => (
     activeOpacity={0.7}
     accessibilityRole="button"
   >
-    <Text className="text-gray-300 font-medium">{label}</Text>
+    <Text className="text-gray-300 font-roboto">{label}</Text>
 
     <View className="flex-row items-center">
-      <Text className="text-neutral-500 mr-2">{value}</Text>
+      <Text className="text-neutral-500 font-roboto mr-2">{value}</Text>
       <ChevronRight size={18} color="gray" />
     </View>
   </TouchableOpacity>
