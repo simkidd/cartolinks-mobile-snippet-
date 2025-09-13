@@ -2,15 +2,30 @@ import { AppHeader } from "@/components/app-header";
 import { PosterCategoryCard } from "@/components/poster-category-card";
 import { SettingsRow } from "@/components/settings-row";
 import { useTheme } from "@/contexts/theme.context";
-import { ImagePlus } from "lucide-react-native";
-import { useState } from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { useFocusEffect, useRouter } from "expo-router";
+import { ImagePlus, X } from "lucide-react-native";
+import { useCallback, useState } from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { GenerateButton } from "../components/generate-button";
 
 export default function GeneratePosterScreen() {
   const { theme } = useTheme();
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("display");
   const [activeTab, setActiveTab] = useState<"smart" | "advanced">("smart");
+  const [image, setImage] = useState<string | null>(null);
+  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState(
     "stunning promotional image of a deliciously decorated cake, emphasizing its layers, frosting, and toppings in an enticing setting."
   );
@@ -44,7 +59,47 @@ export default function GeneratePosterScreen() {
   ];
 
   const handleGenerate = () => {
-    console.log("Generate button pressed!");
+    if (!description && !image) {
+      Alert.alert("Please add a description or an image to generate a poster.");
+      return;
+    }
+
+    setLoading(true);
+
+    setTimeout(() => {
+      const newImageUri =
+        image ?? `https://picsum.photos/400/600?random=${Date.now()}`;
+      router.push({
+        pathname: "/generated-poster",
+        params: { imageUri: newImageUri },
+      });
+    }, 2000);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      setLoading(false);
+      return () => setLoading(false);
+    }, [])
+  );
+
+  const pickImage = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) {
+      alert("Permission to access media library is required!");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      quality: 0.8,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
   };
 
   return (
@@ -88,13 +143,34 @@ export default function GeneratePosterScreen() {
             className={`min-h-[100px] text-base ${
               theme === "dark" ? "text-white" : "text-black"
             }`}
-            placeholder="Describe your poster..."
+            placeholder="Describe or write a prompt for your poster..."
             placeholderTextColor={theme === "dark" ? "#aaa" : "#555"}
             textAlignVertical="top"
           />
           <View className="flex-row justify-end mt-2">
-            <ImagePlus color={theme === "dark" ? "white" : "black"} />
+            <TouchableOpacity onPress={pickImage}>
+              <ImagePlus
+                color={theme === "dark" ? "white" : "black"}
+                size={24}
+              />
+            </TouchableOpacity>
           </View>
+
+          {image && (
+            <View className="relative w-full h-40 aspect-square mt-2 rounded-lg">
+              <Image
+                source={{ uri: image }}
+                className="w-full h-full rounded-lg"
+                resizeMode="cover"
+              />
+              <TouchableOpacity
+                onPress={() => setImage(null)}
+                className="absolute top-1 right-1 bg-black/50 p-1 rounded-full"
+              >
+                <X size={16} color="white" />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
 
         <Text
@@ -129,6 +205,13 @@ export default function GeneratePosterScreen() {
       </ScrollView>
 
       <GenerateButton onPress={handleGenerate} />
+
+      {loading && (
+        <View className="absolute inset-0 bg-black/60 items-center justify-center z-50">
+          <Text className="text-white text-lg mb-4">Generating poster...</Text>
+          <ActivityIndicator size="large" color="#4F8EF7" />
+        </View>
+      )}
     </View>
   );
 }
