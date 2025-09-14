@@ -3,8 +3,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { File, Paths } from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { ArrowLeft } from "lucide-react-native";
-import { Alert, Image, Pressable, Text, View } from "react-native";
+import { ChevronLeft } from "lucide-react-native";
+import { Alert, Image, Pressable, View } from "react-native";
 
 export default function GeneratedPosterScreen() {
   const { theme } = useTheme();
@@ -58,16 +58,16 @@ export default function GeneratedPosterScreen() {
       <View className={`flex-row items-center justify-between p-4 `}>
         <Pressable
           onPress={() => router.back()}
-          className="flex-row items-center gap-2"
+          className="flex-row items-center gap-1"
         >
-          <ArrowLeft size={22} color={isDark ? "white" : "black"} />
-          <Text
+          <ChevronLeft size={28} color={isDark ? "white" : "black"} />
+          {/* <Text
             className={`${
               isDark ? "text-white" : "text-black"
             } text-lg font-medium`}
           >
             Back
-          </Text>
+          </Text> */}
         </Pressable>
 
         <Pressable onPress={handleDownload} className="p-2">

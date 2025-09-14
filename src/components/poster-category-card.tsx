@@ -30,8 +30,8 @@ export const PosterCategoryCard = ({
           className={`w-full rounded-xl border-transparent border-2 overflow-hidden ${
             isSelected
               ? theme === "dark"
-                ? " border-white"
-                : "border-[#715CFD]"
+                ? "border-white"
+                : "!border-[#715CFD]"
               : ""
           }`}
         >

@@ -1,5 +1,6 @@
+import { CustomTab } from "@/components/shared/custom-tab";
+import { HapticTab } from "@/components/shared/haptic-tab";
 import { useTheme } from "@/contexts/theme.context";
-import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
@@ -22,7 +23,8 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: "600",
-          marginTop: 4,
+          marginTop: 6,
+          color: inactiveColor
         },
         tabBarStyle: {
           height: 80,
@@ -33,17 +35,19 @@ export default function TabLayout() {
         tabBarItemStyle: {
           paddingVertical: 10,
         },
+        tabBarButton: HapticTab,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ focused, color }) => (
-            <Ionicons
-              name={focused ? "home" : "home-outline"}
-              size={24}
-              color={color}
+          tabBarIcon: ({ focused }) => (
+            <CustomTab
+              label="Home"
+              iconName={focused ? "home" : "home-outline"}
+              focused={focused}
+              color={focused ? activeColor : inactiveColor}
             />
           ),
         }}
@@ -52,11 +56,12 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: "Settings",
-          tabBarIcon: ({ focused, color }) => (
-            <Ionicons
-              name={focused ? "settings" : "settings-outline"}
-              size={24}
-              color={color}
+          tabBarIcon: ({ focused }) => (
+            <CustomTab
+              label="Settings"
+              iconName={focused ? "settings" : "settings-outline"}
+              focused={focused}
+              color={focused ? activeColor : inactiveColor}
             />
           ),
         }}
