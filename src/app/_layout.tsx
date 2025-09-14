@@ -24,6 +24,8 @@ const App = () => {
         backgroundColor: theme === "dark" ? "#000000" : "#FFFFFF",
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
       }}
     >
       <StatusBar
