@@ -4,6 +4,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -43,15 +44,14 @@ const App = () => {
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-  Roboto: require("../assets/fonts/Roboto-VariableFont_wdth,wght.ttf"),
-  "Roboto-Bold": require("../assets/fonts/Roboto-VariableFont_wdth,wght.ttf"),
-  "Roboto-Medium": require("../assets/fonts/Roboto-VariableFont_wdth,wght.ttf"),
+    Roboto: require("../assets/fonts/Roboto-VariableFont_wdth,wght.ttf"),
+    "Roboto-Bold": require("../assets/fonts/Roboto-VariableFont_wdth,wght.ttf"),
+    "Roboto-Medium": require("../assets/fonts/Roboto-VariableFont_wdth,wght.ttf"),
 
-  Nunito: require("../assets/fonts/Nunito-VariableFont_wght.ttf"),
-  "Nunito-Bold": require("../assets/fonts/Nunito-VariableFont_wght.ttf"),
-  "Nunito-SemiBold": require("../assets/fonts/Nunito-VariableFont_wght.ttf"),
-});
-
+    Nunito: require("../assets/fonts/Nunito-VariableFont_wght.ttf"),
+    "Nunito-Bold": require("../assets/fonts/Nunito-VariableFont_wght.ttf"),
+    "Nunito-SemiBold": require("../assets/fonts/Nunito-VariableFont_wght.ttf"),
+  });
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -60,13 +60,15 @@ export default function RootLayout() {
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
-    return null; 
+    return null;
   }
 
   return (
     <ThemeProvider>
       <SafeAreaProvider>
-        <App />
+        <GestureHandlerRootView>
+          <App />
+        </GestureHandlerRootView>
       </SafeAreaProvider>
     </ThemeProvider>
   );

@@ -1,6 +1,6 @@
 import { useTheme } from "@/contexts/theme.context";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Directory, File, Paths } from "expo-file-system";
+import { File, Paths } from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeft } from "lucide-react-native";
@@ -14,7 +14,13 @@ export default function GeneratedPosterScreen() {
   const isDark = theme === "dark";
 
   const handleDownload = async () => {
+    if (!imageUri) {
+      Alert.alert("Error", "No image found to download");
+      return;
+    }
+
     try {
+      // Request permission to save to gallery
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status !== "granted") {
         Alert.alert(
@@ -24,22 +30,22 @@ export default function GeneratedPosterScreen() {
         return;
       }
 
-      // Create cache directory
-      const destination = new Directory(Paths.cache, "posters");
-      destination.create();
+      // Create cache directory for images
+      // const destinationDir = new Directory(Paths.cache, "images");
+      // destinationDir.create({ intermediates: true });
 
-      // Download the file
-      const fileName = `poster_${Date.now()}.jpg`;
-      const file = new File(destination, fileName);
+      // Generate filename
+      const filename = `poster_${Date.now()}.jpg`;
+      const file = new File(Paths.cache, filename);
+
+      // Download file
       const output = await File.downloadFileAsync(imageUri, file);
 
-      if (output.exists) {
-        // Save to gallery
-        await MediaLibrary.saveToLibraryAsync(output.uri);
-        Alert.alert("Downloaded", "Poster saved to your gallery!");
-      } else {
-        Alert.alert("Error", "Failed to download image");
-      }
+      // Save to gallery
+      const asset = await MediaLibrary.createAssetAsync(output.uri);
+      await MediaLibrary.createAlbumAsync("Download", asset, false);
+
+      Alert.alert("Success", "Image downloaded to gallery!");
     } catch (error) {
       console.error(error);
       Alert.alert("Error", "Failed to download image");
@@ -77,7 +83,7 @@ export default function GeneratedPosterScreen() {
       <View className="flex-1 items-center justify-center p-4">
         <Image
           source={{ uri: imageUri }}
-          className="w-full h-[80%] rounded-2xl shadow-lg"
+          className="w-full h-full"
           resizeMode="contain"
         />
       </View>
